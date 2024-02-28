@@ -66,10 +66,42 @@ Deploy a smart contract on Metis using Hardhat.
 10. **Verification and Interaction:**
     - After deployment, you will receive a transaction hash. You can use this hash to verify your contract's deployment on the Metis blockchain explorer.
     - Interacting with your deployed contract can be done through Hardhat scripts or directly via a web3 provider interface like Metamask.
+______
 
+### Lock.sol Contract Overview
 
+- **Purpose:** The `Lock` contract is designed to lock Ether (or Metis in our case) until a specified future time. Once the time lock expires, the locked funds can be withdrawn by the contract's owner.
 
+### Key Components
 
+1. **State Variables:**
+   - `unlockTime`: A `public` uint variable that stores the timestamp (in seconds since the Unix epoch) until which the funds are locked.
+   - `owner`: A `public` and `payable` address variable that stores the contract owner's address, who is allowed to withdraw the funds after the unlock time.
+
+2. **Event:**
+   - `Withdrawal`: An event that logs the withdrawal action, including the amount of ETH withdrawn and the timestamp of the withdrawal.
+
+3. **Constructor:**
+   - The constructor takes a single parameter `_unlockTime` (the future timestamp until which the funds should be locked) and sets the contract's `unlockTime` and `owner` state variables. It requires that the `_unlockTime` is in the future compared to the current `block.timestamp`.
+   - The constructor also allows the deployment transaction to include ETH, making the contract's address payable and enabling it to hold and lock the transferred ETH.
+
+4. **Functions:**
+   - `withdraw()`: This function allows the contract owner to withdraw all the locked funds after the `unlockTime` has passed. It includes two `require` statements to ensure that:
+     1. The current block timestamp is equal to or later than the `unlockTime`, ensuring the funds are locked until the specified time.
+     2. The caller of the function (`msg.sender`) is the owner of the contract, preventing unauthorized access to the funds.
+   - Upon successful validation, the `Withdrawal` event is emitted, and the contract transfers its entire balance to the owner.
+
+### Logic and Expectations
+
+- **Locking Mechanism:** Upon deployment, the contract locks any ETH sent with the constructor transaction until the specified `unlockTime`.
+- **Security:** The contract ensures that only the owner can withdraw the funds and only after the specified unlock time.
+- **Transparency:** The `unlockTime` and `owner` are publicly visible, making the contract's state and intentions transparent.
+- **Event Logging:** The `Withdrawal` event provides an auditable log of withdrawals, useful for tracking when and how funds are withdrawn.
+
+### Interaction
+You can interact with the `Lock.sol` contract once it's deployed on the Metis network. Interacting with a smart contract typically involves two types of operations: **read operations**, which don't change the state of the blockchain and therefore don't require a transaction fee, and **write operations**, which do change the state and require gas fees. For the `Lock.sol` contract, you'll mainly be concerned with a write operation (`withdraw`) and reading state variables (`unlockTime` and `owner`).
+
+______
 #### (Incomplete) List of useful resources for building on Metis
 
 - Documentation for devs
