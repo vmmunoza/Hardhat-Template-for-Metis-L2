@@ -1,7 +1,7 @@
 # Metis 101: Deploy and Explore
 
 Deploy a smart contract on Metis using Hardhat. 
-Hardhat is a development environment to compile, deploy, test, and debug smart contracts. 
+
 
 ### Setting Up the Project Environment
 
