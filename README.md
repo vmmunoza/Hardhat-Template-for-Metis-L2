@@ -1,6 +1,6 @@
-# Metis 101: Deploy and Explore
+# Metis L2 - Hardhat Template: Deploy Your First Smart Contract 
 
-Deploy your first smart contract on Metis L2 using Hardhat. 
+Follow these steps to deploy your first smart contract on Metis L2 using Hardhat. 
 
 
 ### Setting Up the Project Environment
