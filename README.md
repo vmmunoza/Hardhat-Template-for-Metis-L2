@@ -1,6 +1,6 @@
 # Metis 101: Deploy and Explore
 
-Deploy a smart contract on Metis using Hardhat. 
+Deploy your first smart contract on Metis L2 using Hardhat. 
 
 
 ### Setting Up the Project Environment
